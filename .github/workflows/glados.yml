@@ -38,22 +38,6 @@ jobs:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           AUTH_CODE: ${{ secrets.AUTH_CODE }}
           RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
-          SENDKEY: ${{ secrets.SENDKEY }}
-          SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
-          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
-          DINGTALK_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
-          DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}
-          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
-          FEISHU_SECRET: ${{ secrets.FEISHU_SECRET }}
-          WECOM_BOT_WEBHOOK: ${{ secrets.WECOM_BOT_WEBHOOK }}
-          YUNHU_TOKEN: ${{ secrets.YUNHU_TOKEN }}
-          YUNHU_RECV_ID: ${{ secrets.YUNHU_RECV_ID }}
-          YUNHU_RECV_TYPE: ${{ secrets.YUNHU_RECV_TYPE }}
-          # #9 积分兑换计划（可选；不配置则默认不兑换，不影响现有签到）
-          EXCHANGE_PLAN: ${{ secrets.EXCHANGE_PLAN }}
-          GLADOS_EXCHANGE_PLAN: ${{ secrets.GLADOS_EXCHANGE_PLAN }}
 
   keepalive:
     name: 每月空提交保活
