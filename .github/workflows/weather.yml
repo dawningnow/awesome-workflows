@@ -31,10 +31,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 lxml
 
-      - name: Run weather Report
+      - name: Run weather.py
         run: python weather.py
         env:
-          APP_ID: ${{ secrets.APP_ID }}
-          APP_SECRET: ${{ secrets.APP_SECRET }}
-          OPEN_ID: ${{ secrets.OPEN_ID }}
-          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          AUTH_CODE: ${{ secrets.AUTH_CODE }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}

@@ -2,6 +2,10 @@ import requests
 import json
 from bs4 import BeautifulSoup
 import datetime
+import os
+import smtplib
+from email.mime.text import MIMEText
+from email.utils import formataddr
 
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
@@ -57,16 +61,40 @@ def get_daily_love():
     daily_love = sentence
     return daily_love
 
+
+def email_notice(content: str):
+    sender_email = os.getenv("SENDER_EMAIL", "")
+    auth_code = os.getenv("AUTH_CODE", "")
+    receiver_email = os.getenv("RECEIVER_EMAIL", "")
+    message = MIMEText(content, 'plain', 'utf-8')
+    message['From'] = formataddr(('q128', sender_email))
+    message['To'] = formataddr(('dawningnow', receiver_email))
+    message['Subject'] = 'GLaDOS签到' 
+    try:
+        server = smtplib.SMTP_SSL('smtp.qq.com', 465)
+        server.login(sender_email, auth_code)
+        server.sendmail(sender_email, [receiver_email], message.as_string())
+        server.quit()
+        print("邮件发送成功！")
+    except Exception as e:
+        print(f"邮件发送失败 !")
+
+
 def weather_report(this_city):
     weather = get_weather(this_city)
-    print(f"今天：{datetime.date.today()}\n"
-    f"地区：{weather[0]}\n"
-    f"天气：{weather[1]}\n"
-    f"气温：{weather[2]}\n"
-    f"风向：{weather[3]}\n"
-    f"每日情话：{get_daily_love()}\n"
-    f"更新时间：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    content = f"""
+    今天：{datetime.date.today()}
+    地区：{weather[0]}
+    天气：{weather[1]}
+    气温：{weather[2]}
+    风向：{weather[3]}
+    SweetNothings：{get_daily_love()}
+    更新时间：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}
+    """
+    email_notice(content)
+    print(content)
+
 
 
 if __name__ == '__main__':
-    weather_report("襄阳")
+    weather_report("长春")

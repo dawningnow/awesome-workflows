@@ -22,6 +22,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # checkin.py下载到actions中进行运行
+          sparse-checkout: checkin.py
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -31,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: pip install "requests==2.32.3" --no-cache-dir
 
-      - name: Run checkin
+      - name: Run checkin.py
         run: python checkin.py
         env:
           COOKIES: ${{ secrets.COOKIES }}
