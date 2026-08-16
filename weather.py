@@ -65,10 +65,10 @@ def get_daily_love():
 def email_notice(content: str):
     sender_email = os.getenv("SENDER_EMAIL", "")
     auth_code = os.getenv("AUTH_CODE", "")
-    receiver_email = os.getenv("RECEIVER_EMAIL", "")
+    receiver_email = os.getenv("USER_EMAIL", "")
     message = MIMEText(content, 'plain', 'utf-8')
     message['From'] = formataddr(('dawn', sender_email))
-    message['To'] = formataddr(('dawningnow', receiver_email))
+    message['To'] = formataddr(('#11', receiver_email))
     message['Subject'] = '早安，今日份天气请查阅！' 
     try:
         server = smtplib.SMTP_SSL('smtp.qq.com', 465)
