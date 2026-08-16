@@ -1,0 +1,40 @@
+name: 天气预报推送
+
+on:
+  workflow_dispatch:  # 手动触发
+  schedule:
+    - cron: "00 22 * * *" # 北京时间每天早上6点执行
+
+permissions:
+  contents: read
+
+jobs:
+  weather_send:
+    runs-on: ubuntu-latest
+    env:
+      # 设置时区
+      TZ: Asia/Shanghai
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # 仅仅将weather.py下载到actions中进行运行
+          sparse-checkout: weather.py
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 lxml
+
+      - name: Run weather Report
+        run: python weather_report.py
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          OPEN_ID: ${{ secrets.OPEN_ID }}
+          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
