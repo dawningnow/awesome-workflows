@@ -47,7 +47,7 @@ def get_weather(my_city):
                     wind_night = list(wind_td_day_night.stripped_strings)[0] + list(wind_td_day_night.stripped_strings)[1]
 
                     # 如果没有白天的数据就使用夜间的
-                    temp = f"{low_temp}——{high_temp}摄氏度" if high_temp != "-" else f"{low_temp}摄氏度"
+                    temp = f"{low_temp}—{high_temp}摄氏度" if high_temp != "-" else f"{low_temp}摄氏度"
                     weather_typ = weather_typ_day if weather_typ_day != "-" else weather_type_night
                     wind = f"{wind_day}" if wind_day != "--" else f"{wind_night}"
                     return this_city, weather_typ, temp, wind
@@ -67,9 +67,9 @@ def email_notice(content: str):
     auth_code = os.getenv("AUTH_CODE", "")
     receiver_email = os.getenv("RECEIVER_EMAIL", "")
     message = MIMEText(content, 'plain', 'utf-8')
-    message['From'] = formataddr(('q128', sender_email))
+    message['From'] = formataddr(('dawn', sender_email))
     message['To'] = formataddr(('dawningnow', receiver_email))
-    message['Subject'] = 'GLaDOS签到' 
+    message['Subject'] = '早安，今日份天气请查阅！' 
     try:
         server = smtplib.SMTP_SSL('smtp.qq.com', 465)
         server.login(sender_email, auth_code)
@@ -83,7 +83,7 @@ def email_notice(content: str):
 def weather_report(this_city):
     weather = get_weather(this_city)
     content = f"""
-    今天：{datetime.date.today()}
+    日期：{datetime.date.today()}
     地区：{weather[0]}
     天气：{weather[1]}
     气温：{weather[2]}
