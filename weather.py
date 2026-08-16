@@ -15,7 +15,7 @@ def get_weather(my_city):
     for url in urls:
         resp = requests.get(url)
         text = resp.content.decode("utf-8")
-        soup = BeautifulSoup(text, 'html5lib')
+        soup = BeautifulSoup(text, 'lxml')
         div_conMidtab = soup.find("div", class_="conMidtab")
         tables = div_conMidtab.find_all("table")
         for table in tables:
