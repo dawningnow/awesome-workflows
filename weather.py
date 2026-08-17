@@ -76,7 +76,7 @@ def get_daily_image():
 def email_notice(html_content):
     sender_email = os.getenv("SENDER_EMAIL", "")
     auth_code = os.getenv("AUTH_CODE", "")
-    receiver_email = os.getenv("USER_EMAIL", "")
+    receiver_email = os.getenv("RECEIVER_EMAIL", "")
 
     # 创建邮件容器，支持内联资源（如图片）
     message =  MIMEMultipart('related')  
@@ -122,20 +122,8 @@ def weather_report(this_city):
     }
 
     html = Path("weather_template.html").read_text(encoding="utf-8")
-    
     html_content = html.format(**weather_data)
-
-    content = f"""
-    日期：{datetime.date.today()}
-    地区：{weather[0]}
-    天气：{weather[1]}
-    气温：{weather[2]}
-    风向：{weather[3]}
-    SweetNothings：{weather_data['SweetNothings']}
-    更新时间：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}
-    """
     email_notice(html_content)
-    print(content)
 
 
 if __name__ == '__main__':
