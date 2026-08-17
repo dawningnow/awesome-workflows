@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>每日天气推送</title>
+</head>
+
+<body
+    style="margin:0;padding:0;background-color:#eef2ff;font-family:Arial,'Microsoft YaHei','PingFang SC',sans-serif;color:#2d3748;">
+
+    <!-- 外层背景 -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+        style="width:100%;margin:0;padding:0;background-color:#eef2ff;">
+        <tr>
+            <td align="center" style="padding:24px 12px;">
+
+                <!-- 邮件主体 -->
+                <table role="presentation" width="480" cellpadding="0" cellspacing="0" border="0"
+                    style="width:100%;max-width:480px;background-color:#ffffff;border-collapse:separate;border-spacing:0;border-radius:18px;overflow:hidden;">
+
+                    <!-- 顶部 -->
+                    <tr>
+                        <td align="center" bgcolor="#667eea" style="padding:14px 14px 14px;background-color:#667eea;">
+
+                            <div
+                                style="font-size:11px;line-height:16px;font-weight:bold;letter-spacing:2px;color:#ffe082;margin-bottom:8px;">
+                                🔔 叮！
+                            </div>
+
+                            <!-- Outlook 不可靠 CSS animation，因此保留图标但使用静态视觉 -->
+                            <div style="font-size:52px;line-height:58px;margin-bottom:4px;">
+                                🔔
+                            </div>
+
+                            <div style="font-size:12px;line-height:18px;letter-spacing:3px;color:#e9e7ff;">
+                                ✦ DAILY PUSH ✦
+                            </div>
+
+                            <div style="font-size:15px;line-height:22px;color:#f4f3ff;margin-top:10px;">
+                                📅 {date} 星期 {week}
+                            </div>
+
+                            <div style="font-size:27px;line-height:34px;font-weight:bold;color:#ffffff;margin-top:4px;">
+                                🏙️ {location}
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <!-- 内容 -->
+                    <tr>
+                        <td style="padding:2px 5px 18px;background-color:#ffffff;">
+
+                            <!-- 天气 -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                                style="width:100%;border-collapse:separate;border-spacing:0 10px;padding: 0 14px;">
+
+                                <tr>
+                                    <td
+                                        style="padding:13px 15px;background-color:#eff6ff;border-left:4px solid #3b82f6;border-radius:10px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+                                            border="0">
+                                            <tr>
+                                                <td width="76"
+                                                    style="width:76px;font-size:14px;line-height:20px;color:#64748b;font-weight:bold;">
+                                                    📋 天气：
+                                                </td>
+                                                <td
+                                                    style="font-size:18px;line-height:24px;color:#2563eb;font-weight:bold;">
+                                                    {weather_type}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td
+                                        style="padding:13px 15px;background-color:#fffbeb;border-left:4px solid #f59e0b;border-radius:10px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+                                            border="0">
+                                            <tr>
+                                                <td width="76"
+                                                    style="width:76px;font-size:14px;line-height:20px;color:#64748b;font-weight:bold;">
+                                                    🌡️ 气温：
+                                                </td>
+                                                <td
+                                                    style="font-size:20px;line-height:26px;color:#d97706;font-weight:bold;">
+                                                    {temp}°C
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td
+                                        style="padding:13px 15px;background-color:#ecfdf5;border-left:4px solid #10b981;border-radius:10px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+                                            border="0">
+                                            <tr>
+                                                <td width="76"
+                                                    style="width:76px;font-size:14px;line-height:20px;color:#64748b;font-weight:bold;">
+                                                    💨 风向：
+                                                </td>
+                                                <td
+                                                    style="font-size:16px;line-height:23px;color:#059669;font-weight:bold;">
+                                                    {wind}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <!-- 爱意 -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                                style="width:100%;margin:1px 0 8px;">
+                                <tr>
+                                    <td align="center" bgcolor="#fff0f6"
+                                        style="padding:5px 5px;background-color:#fff0f6;border:1px solid #f8dce9;border-radius:14px;">
+
+                                        <div
+                                            style="font-size:13px;line-height:20px;color:#e91e63;font-weight:bold;letter-spacing:2px;margin-bottom:6px;font-family: 'Alex Brush', 'Great Vibes', 'Brush Script MT', 'Segoe Script', cursive;text-align:left;">
+                                            💝 SweetNothings:
+                                        </div>
+
+                                        <div
+                                            style="font-size:12px;line-height:29px;color:#6a1b9a;font-weight:500;">
+                                            你知道你和星星有什么区别吗？那就是星星在天上，而你在我心里
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- 📸 每日图片标题 -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                                style="width:100%;margin:6px 0 4px;">
+                                <tr>
+                                    <td
+                                        style="font-size:14px;line-height:20px;color:#64748b;font-weight:bold;padding:0 4px;">
+                                        🕊️ 每日图片：
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- 图片 -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                                style="width:100%;margin:0 0 16px;border-collapse:separate;">
+                                <tr>
+                                    <td align="center" bgcolor="#f7fafc"
+                                        style="background-color:#f7fafc;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+
+                                        <img src="cid:daily_image" alt="每日图片" width="432"
+                                            style="display:block;width:100%;max-width:432px;height:auto;border:0;outline:none;text-decoration:none;">
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- 更新时间 -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                                style="width:100%;border-top:1px solid #e8edf5;">
+                                <tr>
+                                    <td align="center"
+                                        style="padding:14px 0 4px;font-size:12px;line-height:18px;color:#94a3b8;">
+                                        🔄 更新时间：{update}
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- 底部 -->
+                    <tr>
+                        <td align="center" bgcolor="#f7fafc"
+                            style="padding:15px 20px;background-color:#f7fafc;border-top:1px solid #e8edf5;font-size:12px;line-height:18px;color:#94a3b8;">
+                            💌 每日天气推送 · 愿你今日好心情
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
