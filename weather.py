@@ -10,6 +10,7 @@ from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
             "http://www.weather.com.cn/textFC/db.shtml",
@@ -73,6 +74,7 @@ def get_daily_image():
     response = requests.get(image_url, timeout=10)
     return response.content
 
+
 def email_notice(html_content):
     sender_email = os.getenv("SENDER_EMAIL", "")
     auth_code = os.getenv("AUTH_CODE", "")
@@ -127,4 +129,4 @@ def weather_report(this_city):
 
 
 if __name__ == '__main__':
-    weather_report("长春")
+    weather_report("武汉")
