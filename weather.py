@@ -78,13 +78,13 @@ def get_daily_image():
 def email_notice(html_content):
     sender_email = os.getenv("SENDER_EMAIL", "")
     auth_code = os.getenv("AUTH_CODE", "")
-    receiver_email = os.getenv("RECEIVER_EMAIL", "")
+    receiver_email = os.getenv("WHY_EMAIL", "")
 
     # 创建邮件容器，支持内联资源（如图片）
     message =  MIMEMultipart('related')  
 
     message['From'] = formataddr(('dawn', sender_email))
-    message['To'] = formataddr(('#11', receiver_email))
+    message['To'] = formataddr(('wei', receiver_email))
     message['Subject'] = '早安，今日份天气请查阅！' 
 
     # 插入html至邮件中
