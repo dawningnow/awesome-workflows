@@ -1,11 +1,14 @@
 import requests
 import json
+import os
 from bs4 import BeautifulSoup
 import datetime
-import os
 import smtplib
-from email.mime.text import MIMEText
 from email.utils import formataddr
+from pathlib import Path
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
@@ -62,14 +65,38 @@ def get_daily_love():
     return daily_love
 
 
-def email_notice(content: str):
+def get_daily_image():
+    url = "https://open.iciba.com/dsapi/"
+    res = requests.get(url)
+    all_dict = json.loads(res.text)
+    image_url = all_dict["fenxiang_img"]
+    response = requests.get(image_url, timeout=10)
+    return response.content
+
+def email_notice(html_content):
     sender_email = os.getenv("SENDER_EMAIL", "")
     auth_code = os.getenv("AUTH_CODE", "")
     receiver_email = os.getenv("USER_EMAIL", "")
-    message = MIMEText(content, 'plain', 'utf-8')
+
+    # 创建邮件容器，支持内联资源（如图片）
+    message =  MIMEMultipart('related')  
+
     message['From'] = formataddr(('dawn', sender_email))
     message['To'] = formataddr(('#11', receiver_email))
     message['Subject'] = '早安，今日份天气请查阅！' 
+
+    # 插入html至邮件中
+    message.attach(MIMEText(html_content, 'html', 'utf-8'))
+
+    # 获取图片
+    image_data = get_daily_image()
+
+    # 添加图片
+    image = MIMEImage(image_data, _subtype="png")
+    image.add_header("Content-ID", "<daily_image>")
+    image.add_header("Content-Disposition", "inline",filename="daily_image.png")
+    message.attach(image)
+
     try:
         server = smtplib.SMTP_SSL('smtp.qq.com', 465)
         server.login(sender_email, auth_code)
@@ -82,18 +109,33 @@ def email_notice(content: str):
 
 def weather_report(this_city):
     weather = get_weather(this_city)
+    weekdays = ['一', '二', '三', '四', '五', '六', '日']
+    weather_data = {
+        'date': datetime.date.today().strftime('%Y年%m月%d日'),
+        'week':weekdays[datetime.datetime.now().weekday()],
+        'location': weather[0],
+        'weather_type': weather[1],
+        'temp': weather[2],
+        'wind': weather[3],
+        'SweetNothings': get_daily_love(),
+        'update': datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    }
+
+    html = Path("weather_template.html").read_text(encoding="utf-8")
+    
+    html_content = html.format(**weather_data)
+
     content = f"""
     日期：{datetime.date.today()}
     地区：{weather[0]}
     天气：{weather[1]}
     气温：{weather[2]}
     风向：{weather[3]}
-    SweetNothings：{get_daily_love()}
+    SweetNothings：{weather_data['SweetNothings']}
     更新时间：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}
     """
-    email_notice(content)
+    email_notice(html_content)
     print(content)
-
 
 
 if __name__ == '__main__':
