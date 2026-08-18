@@ -75,10 +75,10 @@ def get_daily_image():
     return response.content
 
 
-def email_notice(html_content):
+def email_notice(receiver, html_content):
     sender_email = os.getenv("SENDER_EMAIL", "")
     auth_code = os.getenv("AUTH_CODE", "")
-    receiver_email = os.getenv("WHY_EMAIL", "")
+    receiver_email = os.getenv(receiver, "")
 
     # 创建邮件容器，支持内联资源（如图片）
     message =  MIMEMultipart('related')  
@@ -109,7 +109,7 @@ def email_notice(html_content):
         print(f"邮件发送失败 !")
 
 
-def weather_report(this_city):
+def weather_report(receiver, this_city):
     weather = get_weather(this_city)
     weekdays = ['一', '二', '三', '四', '五', '六', '日']
     weather_data = {
@@ -125,8 +125,9 @@ def weather_report(this_city):
 
     html = Path("weather_template.html").read_text(encoding="utf-8")
     html_content = html.format(**weather_data)
-    email_notice(html_content)
+    email_notice(receiver, html_content)
 
 
 if __name__ == '__main__':
-    weather_report("武汉")
+    weather_report("TEST_EMAIL", "武汉")
+    weather_report("TEST_EMAIL", "长春")

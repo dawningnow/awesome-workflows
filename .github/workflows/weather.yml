@@ -36,5 +36,6 @@ jobs:
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           AUTH_CODE: ${{ secrets.AUTH_CODE }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           WHY_EMAIL: ${{ secrets.WHY_EMAIL }}
-          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+          CH_EMAIL: ${{ secrets.CH_EMAIL }}
