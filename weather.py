@@ -129,5 +129,5 @@ def weather_report(receiver, this_city):
 
 
 if __name__ == '__main__':
-    weather_report("TEST_EMAIL", "武汉")
-    weather_report("TEST_EMAIL", "长春")
+    weather_report("WHY_EMAIL", "武汉")
+    weather_report("CH_EMAIL", "长春")
