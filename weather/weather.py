@@ -91,7 +91,7 @@ def email_notice(receiver, html_content):
     message.attach(MIMEText(html_content, 'html', 'utf-8'))
 
     # 添加GIF
-    with open('bell.gif', 'rb') as f:
+    with open('weather/bell.gif', 'rb') as f:
         img_data = f.read()
         img_part = MIMEImage(img_data, 'gif')
         img_part.add_header('Content-ID', '<bell_image>')
@@ -131,7 +131,7 @@ def weather_report(receiver, this_city):
         'update': datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
     }
 
-    html = Path("weather_template.html").read_text(encoding="utf-8")
+    html = Path("weather/weather_template.html").read_text(encoding="utf-8")
     html_content = html.format(**weather_data)
     email_notice(receiver, html_content)
 
