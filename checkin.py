@@ -246,9 +246,9 @@ def classify_checkin(code: Any, message: str) -> str:
 def email_notice(content: str):
     sender_email = os.getenv("SENDER_EMAIL", "")
     auth_code = os.getenv("AUTH_CODE", "")
-    receiver_email = os.getenv("RECEIVER_EMAIL", "")
+    receiver_email = os.getenv("TEST_EMAIL", "")
     message = MIMEText(content, 'plain', 'utf-8')
-    message['From'] = formataddr(('q128', sender_email))
+    message['From'] = formataddr(('Q128', sender_email))
     message['To'] = formataddr(('dawningnow', receiver_email))
     message['Subject'] = 'GLaDOS签到' 
     try:

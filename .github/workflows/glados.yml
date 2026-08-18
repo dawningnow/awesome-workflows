@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # checkin.py下载到actions中进行运行
+          # 将checkin.py下载到actions中进行运行
           sparse-checkout: checkin.py
 
       - name: Setup Python
@@ -40,7 +40,7 @@ jobs:
           COOKIES: ${{ secrets.COOKIES }}
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           AUTH_CODE: ${{ secrets.AUTH_CODE }}
-          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
 
   keepalive:
     name: 每月空提交保活
