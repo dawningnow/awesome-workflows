@@ -18,8 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # 仅仅将weather.py下载到actions中进行运行
-          sparse-checkout: weather.py weather_template.html
+          # 指定文件导入到actions中进行运行
+          sparse-checkout: |
+            weather/bell.gif
+            weather/weather_template.html
+            weather/weather.py
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5

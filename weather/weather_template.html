@@ -25,25 +25,20 @@
                     <tr>
                         <td align="center" bgcolor="#667eea" style="padding:14px 14px 14px;background-color:#667eea;">
 
-                            <div
-                                style="font-size:11px;line-height:16px;font-weight:bold;letter-spacing:2px;color:#ffe082;margin-bottom:8px;">
-                                🔔 叮！
-                            </div>
-
-                            <!-- Outlook 不可靠 CSS animation，因此保留图标但使用静态视觉 -->
-                            <div style="font-size:52px;line-height:58px;margin-bottom:4px;">
-                                🔔
+                            <div style="text-align:center;margin-bottom:4px;">
+                                <img src="cid:bell_image" alt="铃铛"
+                                    style="display:inline-block;width:50px;height:45px;animation:swing 1.2s ease-in-out infinite;transform-origin:top center;">
                             </div>
 
                             <div style="font-size:12px;line-height:18px;letter-spacing:3px;color:#e9e7ff;">
                                 ✦ DAILY PUSH ✦
                             </div>
 
-                            <div style="font-size:15px;line-height:22px;color:#f4f3ff;margin-top:10px;">
-                                📅 {date} 星期 {week}
+                            <div style="font-size:14px;line-height:22px;color:#f4f3ff;margin-top:10px;">
+                                📅 {date} , 星期{week}
                             </div>
 
-                            <div style="font-size:27px;line-height:34px;font-weight:bold;color:#ffffff;margin-top:4px;">
+                            <div style="font-size:20px;line-height:34px;font-weight:bold;color:#ffffff;margin-top:4px;">
                                 🏙️ {location}
                             </div>
 
@@ -54,22 +49,23 @@
                     <tr>
                         <td style="padding:2px 5px 18px;background-color:#ffffff;">
 
-                            <!-- 天气 -->
+                            <!-- ===== 天气卡片（紧凑容器，三行，不同背景色，类似SweetNothings风格） ===== -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                style="width:100%;border-collapse:separate;border-spacing:0 10px;padding: 0 14px;">
+                                style="width:100%;margin:2px 0 2px;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;border:1px solid #e8edf5;background-color:#ffffff;">
 
+                                <!-- 第一行：天气 -->
                                 <tr>
                                     <td
-                                        style="padding:13px 15px;background-color:#eff6ff;border-left:4px solid #3b82f6;border-radius:10px;">
+                                        style="padding:5px 8px;background-color:#eff6ff;border-bottom:1px solid #e2e8f0;">
                                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
                                             border="0">
                                             <tr>
-                                                <td width="76"
-                                                    style="width:76px;font-size:14px;line-height:20px;color:#64748b;font-weight:bold;">
-                                                    📋 天气：
+                                                <td width="40%"
+                                                    style="width:40%;font-size:14px;line-height:20px;color:#475569;font-weight:bold;text-align:center;">
+                                                    📋 天气 ：
                                                 </td>
-                                                <td
-                                                    style="font-size:18px;line-height:24px;color:#2563eb;font-weight:bold;">
+                                                <td width="60%"
+                                                    style="width:60%;font-size:14px;line-height:22px;color:#2563eb;font-weight:bold;padding-left: 15px;">
                                                     {weather_type}
                                                 </td>
                                             </tr>
@@ -77,18 +73,19 @@
                                     </td>
                                 </tr>
 
+                                <!-- 第二行：气温 -->
                                 <tr>
                                     <td
-                                        style="padding:13px 15px;background-color:#fffbeb;border-left:4px solid #f59e0b;border-radius:10px;">
+                                        style="padding:5px 8px;background-color:#fffbeb;border-bottom:1px solid #e2e8f0;">
                                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
                                             border="0">
                                             <tr>
-                                                <td width="76"
-                                                    style="width:76px;font-size:14px;line-height:20px;color:#64748b;font-weight:bold;">
-                                                    🌡️ 气温：
+                                                <td width="40%"
+                                                    style="width:40%;font-size:14px;line-height:20px;color:#475569;font-weight:bold;text-align:center;">
+                                                    🌡️ 气温 ：
                                                 </td>
-                                                <td
-                                                    style="font-size:20px;line-height:26px;color:#d97706;font-weight:bold;">
+                                                <td width="60%"
+                                                    style="width:60%;font-size:14px;line-height:22px;color:#d97706;font-weight:bold;padding-left: 15px;">
                                                     {temp}
                                                 </td>
                                             </tr>
@@ -96,18 +93,18 @@
                                     </td>
                                 </tr>
 
+                                <!-- 第三行：风向 -->
                                 <tr>
-                                    <td
-                                        style="padding:13px 15px;background-color:#ecfdf5;border-left:4px solid #10b981;border-radius:10px;">
+                                    <td style="padding:5px 8px;background-color:#ecfdf5;">
                                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
                                             border="0">
                                             <tr>
-                                                <td width="76"
-                                                    style="width:76px;font-size:14px;line-height:20px;color:#64748b;font-weight:bold;">
-                                                    💨 风向：
+                                                <td width="40%"
+                                                    style="width:40%;font-size:14px;line-height:20px;color:#475569;font-weight:bold;text-align:center;">
+                                                    💨 风向 ：
                                                 </td>
-                                                <td
-                                                    style="font-size:16px;line-height:23px;color:#059669;font-weight:bold;">
+                                                <td width="60%"
+                                                    style="width:60%;font-size:14px;line-height:22px;color:#059669;font-weight:bold;padding-left: 15px;">
                                                     {wind}
                                                 </td>
                                             </tr>
@@ -117,9 +114,9 @@
 
                             </table>
 
-                            <!-- 爱意 -->
+                            <!-- SweetNothings (与天气卡片风格统一) -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                style="width:100%;margin:1px 0 8px;">
+                                style="width:100%;margin:3px 0 3px;">
                                 <tr>
                                     <td align="center" bgcolor="#fff0f6"
                                         style="padding:5px 5px;background-color:#fff0f6;border:1px solid #f8dce9;border-radius:14px;">
@@ -129,8 +126,7 @@
                                             💝 SweetNothings:
                                         </div>
 
-                                        <div
-                                            style="font-size:12px;line-height:29px;color:#6a1b9a;font-weight:500;">
+                                        <div style="font-size:12px;line-height:29px;color:#6a1b9a;font-weight:500;">
                                             {SweetNothings}
                                         </div>
 
@@ -149,16 +145,14 @@
                                 </tr>
                             </table>
 
-                            <!-- 图片 -->
+                            <!-- 每日图片 -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
                                 style="width:100%;margin:0 0 16px;border-collapse:separate;">
                                 <tr>
                                     <td align="center" bgcolor="#f7fafc"
                                         style="background-color:#f7fafc;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
-
                                         <img src="cid:daily_image" alt="每日图片" width="432"
                                             style="display:block;width:100%;max-width:432px;height:auto;border:0;outline:none;text-decoration:none;">
-
                                     </td>
                                 </tr>
                             </table>

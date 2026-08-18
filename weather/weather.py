@@ -84,13 +84,21 @@ def email_notice(receiver, html_content):
     message =  MIMEMultipart('related')  
 
     message['From'] = formataddr(('dawn', sender_email))
-    message['To'] = formataddr(('wei', receiver_email))
+    message['To'] = formataddr(('*', receiver_email))
     message['Subject'] = '早安，今日份天气请查阅！' 
 
     # 插入html至邮件中
     message.attach(MIMEText(html_content, 'html', 'utf-8'))
 
-    # 获取图片
+    # 添加GIF
+    with open('bell.gif', 'rb') as f:
+        img_data = f.read()
+        img_part = MIMEImage(img_data, 'gif')
+        img_part.add_header('Content-ID', '<bell_image>')
+        img_part.add_header('Content-Disposition', 'inline', filename="bell_image.gif")
+        message.attach(img_part)
+
+    # 获取每日图片
     image_data = get_daily_image()
 
     # 添加图片
@@ -129,5 +137,5 @@ def weather_report(receiver, this_city):
 
 
 if __name__ == '__main__':
-    weather_report("WHY_EMAIL", "武汉")
-    weather_report("CH_EMAIL", "长春")
+    weather_report("TEST_EMAIL", "武汉")
+    weather_report("TEST_EMAIL", "长春")
