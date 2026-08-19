@@ -75,7 +75,7 @@ def get_daily_image():
     return response.content
 
 
-def email_notice(receiver, html_content):
+def email_notice(daily_image, receiver, html_content):
     sender_email = os.getenv("SENDER_EMAIL", "")
     auth_code = os.getenv("AUTH_CODE", "")
     receiver_email = os.getenv(receiver, "")
@@ -85,7 +85,7 @@ def email_notice(receiver, html_content):
 
     message['From'] = formataddr(('dawn', sender_email))
     message['To'] = formataddr(('*', receiver_email))
-    message['Subject'] = '早安，今日份天气请查阅！' 
+    message['Subject'] = '早安！' 
 
     # 插入html至邮件中
     message.attach(MIMEText(html_content, 'html', 'utf-8'))
@@ -98,11 +98,8 @@ def email_notice(receiver, html_content):
         img_part.add_header('Content-Disposition', 'inline', filename="bell_image.gif")
         message.attach(img_part)
 
-    # 获取每日图片
-    image_data = get_daily_image()
-
     # 添加图片
-    image = MIMEImage(image_data, _subtype="png")
+    image = MIMEImage(daily_image, _subtype="png")
     image.add_header("Content-ID", "<daily_image>")
     image.add_header("Content-Disposition", "inline",filename="daily_image.png")
     message.attach(image)
@@ -117,25 +114,63 @@ def email_notice(receiver, html_content):
         print(f"邮件发送失败 !")
 
 
-def weather_report(receiver, this_city):
+def weather_report(sweetnothings, daily_image,receiver, this_city):
     weather = get_weather(this_city)
+    weather_icons = {
+        '晴': '☀️',
+        '多云': '⛅',
+        '阴': '☁️',
+        '小雨': '🌦️',
+        '中雨': '🌧️',
+        '大雨': '🌧️',
+        '雷阵雨': '⛈️',
+        '小雪': '🌨️',
+        '中雪': '❄️',
+        '大雪': '❄️',
+        '雾': '🌫️',
+        '霾': '🌫️',
+        '风': '💨',
+        '台风': '🌀',
+        '沙尘暴': '🏜️',
+        '晴间多云': '🌤️',
+        '多云转晴': '⛅',
+        '阴天': '☁️',
+        '阵雨': '🌦️',
+        '暴雨': '🌊',
+        '雨夹雪': '🌨️',
+        '冰雹': '🧊',
+        '霜冻': '🥶',
+        '高温': '🥵',
+        '低温': '🥶',
+        '暴雪': '❄️',
+        '雾霾': '🌫️',
+        '扬沙': '🏜️',
+        '浮尘': '🏜️',
+        '强风': '💨',
+        '大风': '💨',
+    }
+    weather_icon = weather_icons.get(weather[1], ' ')
+
     weekdays = ['一', '二', '三', '四', '五', '六', '日']
     weather_data = {
         'date': datetime.date.today().strftime('%Y年%m月%d日'),
         'week':weekdays[datetime.datetime.now().weekday()],
         'location': weather[0],
         'weather_type': weather[1],
+        'weather_icon': weather_icon,
         'temp': weather[2],
         'wind': weather[3],
-        'SweetNothings': get_daily_love(),
+        'SweetNothings': sweetnothings,
         'update': datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
     }
 
     html = Path("weather/weather_template.html").read_text(encoding="utf-8")
     html_content = html.format(**weather_data)
-    email_notice(receiver, html_content)
+    email_notice(daily_image, receiver, html_content)
 
 
 if __name__ == '__main__':
-    weather_report("WHY_EMAIL", "武汉")
-    weather_report("CH_EMAIL", "长春")
+    sweetnothings = get_daily_love()
+    daily_image = get_daily_image()
+    weather_report(sweetnothings, daily_image, "MYSELF_EMAIL", "武汉")
+    # weather_report(sweetnothings, daily_image,"CH_EMAIL", "长春")
