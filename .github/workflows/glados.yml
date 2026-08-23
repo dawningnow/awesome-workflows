@@ -54,11 +54,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const daysToKeep = 7;
-            const cutoffDate = new Date();
-            cutoffDate.setDate(cutoffDate.getDate() - daysToKeep);
-            
-            console.log(`保留 ${cutoffDate.toISOString()} 之后的运行记录`);
+            const maxRunsToKeep = 7;
             
             // 获取所有工作流
             const workflows = await github.rest.actions.listRepoWorkflows({
@@ -67,44 +63,48 @@ jobs:
             });
             
             let totalDeleted = 0;
-            
             for (const workflow of workflows.data.workflows) {
               console.log(`处理工作流: ${workflow.name}`);
               
-              // 获取该工作流的所有运行记录
+              // 获取该工作流的所有运行记录（按创建时间降序排列）
               const runs = await github.rest.actions.listWorkflowRuns({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 workflow_id: workflow.id,
                 per_page: 100,
+                sort: 'created_at',
+                direction: 'desc',  // 最新的在前
               });
               
-              let deleted = 0;
+              const allRuns = runs.data.workflow_runs;
               
-              for (const run of runs.data.workflow_runs) {
-                const runDate = new Date(run.created_at);
-                
-                // 如果运行时间超过7天，删除
-                if (runDate < cutoffDate) {
-                  console.log(`  删除: ${run.name} (ID: ${run.id}, 创建于: ${run.created_at})`);
-                  
-                  await github.rest.actions.deleteWorkflowRun({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    run_id: run.id,
-                  });
-                  
-                  deleted++;
-                  totalDeleted++;
-                  
-                  // 避免 API 速率限制，稍微延迟
-                  await new Promise(resolve => setTimeout(resolve, 100));
-                }
+              // 如果运行记录数量小于等于7，跳过
+              if (allRuns.length <= maxRunsToKeep) {
+                console.log(`  当前有 ${allRuns.length} 条记录，无需删除`);
+                continue;
               }
               
+              // 保留前7条（最新的），删除其余
+              const runsToDelete = allRuns.slice(maxRunsToKeep);
+              console.log(`  当前有 ${allRuns.length} 条记录，将保留最新的 ${maxRunsToKeep} 条，删除 ${runsToDelete.length} 条`);
+              
+              let deleted = 0;
+              for (const run of runsToDelete) {
+                console.log(`  删除: ${run.name || run.id} (ID: ${run.id}, 创建于: ${run.created_at})`);
+                await github.rest.actions.deleteWorkflowRun({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  run_id: run.id,
+                });
+
+                deleted++;
+                totalDeleted++;
+                
+                // 避免 API 速率限制，稍微延迟
+                await new Promise(resolve => setTimeout(resolve, 100));
+              }
               console.log(`  删除了 ${deleted} 条记录`);
             }
-            
             console.log(`✅ 总共删除了 ${totalDeleted} 条运行记录`);
 
   keepalive:
