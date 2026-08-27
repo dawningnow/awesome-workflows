@@ -16,9 +16,10 @@ jobs:
       TZ: Asia/Shanghai
 
     steps:
+      # 指定文件导入到actions中进行运行
       - uses: actions/checkout@v4
         with:
-          # 指定文件导入到actions中进行运行
+          fetch-depth: 1
           sparse-checkout: |
             weather/bell.gif
             weather/weather_template.html

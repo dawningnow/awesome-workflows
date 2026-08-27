@@ -1,0 +1,32 @@
+name: keepalive
+
+on:
+  workflow_dispatch: # 手动触发
+  schedule:
+    - cron: "0 0 1 * *" # 每月 1 号保活空提交
+    
+jobs:
+  keepalive:
+    name: Create an empty commit to maintain activity
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    # 控制该job在同一时刻仅有一个实例运行,新触发的任务需等待该任务结束后运行
+    concurrency: 
+      group: keepalive
+      cancel-in-progress: false
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: 创建空提交并推送
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "update"
+          git push
