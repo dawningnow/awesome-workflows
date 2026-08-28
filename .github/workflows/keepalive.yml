@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 5
 
     # 控制该job在同一时刻仅有一个实例运行,新触发的任务需等待该任务结束后运行
-    concurrency: 
+    concurrency:
       group: keepalive
       cancel-in-progress: false
 

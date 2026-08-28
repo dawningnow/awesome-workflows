@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
-    concurrency: 
+    concurrency:
       group: weatnersend
       cancel-in-progress: false
 
     permissions:
       contents: read
-      
+
     env:  # 设置时区
       TZ: Asia/Shanghai
 
