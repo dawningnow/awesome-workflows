@@ -10,6 +10,7 @@ jobs:
     name: GLaDOS 签到
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
     concurrency:
       group: glados-checkin
       cancel-in-progress: false
@@ -18,7 +19,8 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           sparse-checkout: checkin.py

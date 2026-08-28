@@ -5,19 +5,26 @@ on:
   schedule:
     - cron: "00 22 * * *" # 北京时间每天早上6点执行
 
-permissions:
-  contents: read
-
 jobs:
   weather_send:
+    name: Weather Send
     runs-on: ubuntu-latest
-    env:
-      # 设置时区
+    timeout-minutes: 15
+
+    concurrency: 
+      group: weatnersend
+      cancel-in-progress: false
+
+    permissions:
+      contents: read
+      
+    env:  # 设置时区
       TZ: Asia/Shanghai
 
     steps:
       # 指定文件导入到actions中进行运行
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           sparse-checkout: |
