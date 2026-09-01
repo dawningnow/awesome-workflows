@@ -62,7 +62,7 @@ def get_daily_love():
     url = "https://v1.hitokoto.cn/"
     res = requests.get(url)
     data = res.json()
-    return data['hitokoto'] + '<br>--- ' + data['from']
+    return data['hitokoto'] + '     --- ' + data['from']
 
 
 def get_daily_image():
