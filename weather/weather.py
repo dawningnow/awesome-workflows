@@ -171,6 +171,6 @@ def weather_report(sweetnothings, daily_image,receiver, this_city):
 if __name__ == '__main__':
     sweetnothings = get_daily_love()
     daily_image = get_daily_image()
-    weather_report(sweetnothings, daily_image, "TEST_EMAIL", "武汉")
-    # time.sleep(5)
-    # weather_report(sweetnothings, daily_image,"CH_EMAIL", "长春")
+    weather_report(sweetnothings, daily_image, "WHY_EMAIL", "武汉")
+    time.sleep(5)
+    weather_report(sweetnothings, daily_image, "CH_EMAIL", "长春")
