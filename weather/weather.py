@@ -59,12 +59,10 @@ def get_weather(my_city):
 
 
 def get_daily_love():
-    url = "https://api.lovelive.tools/api/SweetNothings/Serialization/Json"
-    r = requests.get(url)
-    all_dict = json.loads(r.text)
-    sentence = all_dict['returnObj'][0]
-    daily_love = sentence
-    return daily_love
+    url = "https://v1.hitokoto.cn/"
+    res = requests.get(url)
+    data = res.json()
+    return data['hitokoto']
 
 
 def get_daily_image():
@@ -173,6 +171,6 @@ def weather_report(sweetnothings, daily_image,receiver, this_city):
 if __name__ == '__main__':
     sweetnothings = get_daily_love()
     daily_image = get_daily_image()
-    weather_report(sweetnothings, daily_image, "WHY_EMAIL", "武汉")
-    time.sleep(5)
-    weather_report(sweetnothings, daily_image,"CH_EMAIL", "长春")
+    weather_report(sweetnothings, daily_image, "TEST_EMAIL", "武汉")
+    # time.sleep(5)
+    # weather_report(sweetnothings, daily_image,"CH_EMAIL", "长春")
