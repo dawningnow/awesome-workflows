@@ -59,7 +59,14 @@ def get_weather(my_city):
 
 
 def get_daily_love():
-    url = "https://v1.hitokoto.cn/"
+    # 文档：https://www.lovelive.tools/?from=w3cay.com
+    # url = "https://api.lovelive.tools/api/SweetNothings/Serialization/Json"
+    
+    # hitokoto的参数配置：?c=a&c=c （可多选）,文档：https://developer.hitokoto.cn/sentence/
+    # a 动画　b 漫画　c 游戏　d 文学　h 影视
+    # e 原创　f 来自网络　g 其他　i 诗词　j 网易云　k 哲学　l 抖机灵
+    url = "https://v1.hitokoto.cn/?c=d&c=h&c=e&c=f&c=j&c=k"
+    
     res = requests.get(url)
     data = res.json()
     return data['hitokoto'] + '     --- ' + data['from']
