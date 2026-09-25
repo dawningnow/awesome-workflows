@@ -333,7 +333,9 @@ def checkin_account(
 
 # ==================== 主流程 ====================
 def main() -> int:
+    # Cookie格式
     # H2：支持 ||| 或换行(\n)或 & 分隔多账号 Cookie；推荐使用 ||| 避免与 Cookie 值冲突
+    # cookie与分隔符号之间使用空格间隔： cookie1 |||| cookie2
     raw = os.getenv("COOKIES", "")
     cookies = [c.strip() for c in re.split(r"\|\|\||[&\n]", raw) if c.strip()]
 
