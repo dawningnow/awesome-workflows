@@ -26,11 +26,8 @@ POINTS_URL = "https://glados.rocks/api/user/points"
 
 HEADERS_BASE = {
     "origin": "https://glados.rocks",
-    "referer": "https://glados.rocks/console/checkin",
     "user-agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/120.0.0.0 Safari/537.36"
+        "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0"
     ),
     # 注意：使用 requests 的 json= 参数时会自动设置 Content-Type: application/json，
     # 此处无需（也不应）手动设置 content-type，否则与 requests 默认行为重复。
